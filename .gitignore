@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+.idea/
+.vscode/
+*.zip
+# model weights / audio / datasets (large, keep out of git)
+models/
+*.wav
+*.mp3
+*.safetensors
+*.bin
+*.pt
