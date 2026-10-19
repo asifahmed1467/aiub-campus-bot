@@ -9,7 +9,7 @@ Open http://localhost:8000 in Chrome or Edge (needed for the Mic button).
 Tests: `python -m unittest discover tests -v`
 
 ## Data
-- `data/faculty.csv` - DEMO data: names/rooms/schedules are placeholders. Replace with real AIUB data.
+- `data/faculty.csv` - real faculty rooms; timetables only for some faculty (empty = shown as "unknown", never guessed). Types: class, office_hour, admin. "on leave" in the designation is shown as on leave.
 - `data/campus_faq.json` - sample answers marked "SAMPLE"; verify and replace with official AIUB text.
 
 ## Files

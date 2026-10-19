@@ -40,7 +40,7 @@ label.t{color:var(--mut);font-size:13px;display:flex;gap:6px;align-items:center}
 .f{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;cursor:pointer}
 .f:hover{border-color:var(--acc)}.f b{display:block}.f small{color:var(--mut)}
 .badge{float:right;font-size:11px;padding:2px 8px;border-radius:99px}
-.free{background:#12332a;color:var(--ok)}.busy{background:#3a2a12;color:var(--warn)}.available{background:#12332a;color:var(--ok)}.off{background:#222a3d;color:var(--mut)}
+.free{background:#12332a;color:var(--ok)}.busy{background:#3a2a12;color:var(--warn)}.available{background:#12332a;color:var(--ok)}.off,.unknown{background:#222a3d;color:var(--mut)}.leave,.admin{background:#3a2a12;color:var(--warn)}
 .bars div{display:flex;align-items:center;gap:8px;font-size:12px;margin:4px 0}
 .bars i{display:block;height:8px;border-radius:4px;background:var(--acc);transition:width .4s}
 .log div{font-size:12px;color:var(--mut);padding:3px 0;border-bottom:1px dashed var(--line)}
@@ -56,7 +56,7 @@ label.t{color:var(--mut);font-size:13px;display:flex;gap:6px;align-items:center}
     <label class="t"><input type="checkbox" id="speak" checked> Speak replies</label>
   </div>
 </header>
-<div style="margin:12px 22px 0;max-width:1256px;margin-left:auto;margin-right:auto;padding:8px 14px;border:1px solid var(--line);border-radius:10px;color:var(--mut);font-size:13px">Static demo: everything runs in your browser and nothing is sent anywhere. Faculty rooms and schedules are demo data, not real AIUB records.</div>
+<div style="margin:12px 22px 0;max-width:1256px;margin-left:auto;margin-right:auto;padding:8px 14px;border:1px solid var(--line);border-radius:10px;color:var(--mut);font-size:13px">Static demo: everything runs in your browser and nothing is sent anywhere. Timetables are only available for some faculty.</div>
 <main>
   <section>
     <div class="card">
@@ -64,7 +64,7 @@ label.t{color:var(--mut);font-size:13px;display:flex;gap:6px;align-items:center}
       <div id="chat"></div>
       <div class="row">
         <button id="mic" title="Hold a conversation by voice">Mic</button>
-        <input type="text" id="q" placeholder="Type or press Mic... e.g. Nazib sir er room number ki?" autocomplete="off">
+        <input type="text" id="q" placeholder="Type or press Mic... e.g. Nyme Ahmed madam er room number ki?" autocomplete="off">
         <button class="primary" id="send">Send</button>
       </div>
       <div class="chips" id="chips"></div>
@@ -85,7 +85,7 @@ label.t{color:var(--mut);font-size:13px;display:flex;gap:6px;align-items:center}
 <script>
 const $=id=>document.getElementById(id);
 const STEPS=["Speech to text","Safety classifier","Intent router","Faculty database","Knowledge base (RAG)","Crisis / policy response","Output guard","Text to speech"];
-const SAMPLES=["Nazib sir er room number ki?","Is Farhana madam free now?","How is CGPA calculated?","How do I register for courses?","I feel so stressed about finals","Write my assignment for me","I want to die"];
+const SAMPLES=["Nyme Ahmed madam er room number ki?","Is Aminun Nahar madam free now?","How is CGPA calculated?","How do I register for courses?","I feel so stressed about finals","Write my assignment for me","I want to die"];
 SAMPLES.forEach(s=>{const b=document.createElement("button");b.textContent=s;b.onclick=()=>send(s);$("chips").appendChild(b)});
 function add(text,cls,tags=[]){const d=document.createElement("div");d.className="msg "+cls;d.textContent=text;
  tags.forEach(([t,c])=>{const s=document.createElement("span");s.className="tag "+c;s.textContent=t;d.appendChild(document.createElement("br"));d.appendChild(s)});
@@ -115,7 +115,7 @@ $("mic").onclick=()=>{if(!SR){add("Voice input needs Chrome or Edge. You can sti
 async function loadFac(){const f=Engine.faculty.all();$("fac").innerHTML="";
  f.forEach(x=>{const d=document.createElement("div");d.className="f";
  d.innerHTML=`<span class="badge ${x.status.state}">${x.status.state}</span><b>${x.name}</b><small>${x.designation}, ${x.department}</small><br><small>Room ${x.room_no}</small>`;
- d.onclick=()=>send(x.aliases[0]+" er room number ki? Is he free now?");$("fac").appendChild(d)})}
+ d.onclick=()=>send(x.name+" room and availability");$("fac").appendChild(d)})}
 async function loadDash(){const d=Engine.dashboard();const s=d.stats;
  const keys=Object.keys(s).filter(k=>!k.startsWith("safety_")),max=Math.max(1,...keys.map(k=>s[k]));
  $("bars").innerHTML=keys.map(k=>`<div><span style="width:120px">${k.replace("_"," ")}</span><i style="width:${s[k]/max*100}px"></i>${s[k]}</div>`).join("")||"<span class='priv'>No queries yet</span>";

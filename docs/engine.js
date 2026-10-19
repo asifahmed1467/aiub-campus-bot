@@ -3,7 +3,7 @@
   const D = root.CAMPUS_DATA || (typeof require !== "undefined" ? require("./data.js") : null);
   const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
   const WORKDAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday"];
-  const DAY_START = "09:00", DAY_END = "17:30";
+  const DAY_START = "08:00", DAY_END = "17:30";
   const F_STOP = new Set("sir madam mam maam er ki room number no kothay where is the what of ta teacher faculty now free available kokhon when next will be ache achen office hour hours dr prof mr ms and his her uni ekhon can i meet tell me about please koi ar ke".split(" "));
   const K_STOP = new Set("the a an is are what how do i to of in for my and can ki kivabe kothay er e ta where when".split(" "));
 
@@ -64,27 +64,37 @@
   /* ---------- faculty ---------- */
   const FAC = D.faculty;
   FAC.forEach(f => f.schedule.sort((a, b) => DAYS.indexOf(a.day) - DAYS.indexOf(b.day) || a.start.localeCompare(b.start)));
-  function words(s) { return (s.toLowerCase().match(/[a-z]+/g) || []); }
-  function findFaculty(text) {
-    const ws = words(text).filter(w => !F_STOP.has(w));
-    if (!ws.length) return [null, 0];
-    let best = null, bs = 0;
+  const words = s => (s.toLowerCase().match(/[a-z]+/g) || []).filter(w => w.length >= 3 && !F_STOP.has(w));
+  const baseDesignation = d => d.replace(/\s*\(.*?\)/g, "").trim();
+  function rank(text) {
+    const ws = words(text), out = [];
     for (const f of FAC) {
-      const toks = new Set([f.name, ...f.aliases].flatMap(words).filter(w => !F_STOP.has(w)));
-      for (const w of ws) for (const t of toks) {
-        const s = ratio(norm(w), norm(t));
-        if (s > bs) { best = f; bs = s; }
+      const toks = new Set([f.name, ...f.aliases].flatMap(words));
+      let total = 0;
+      for (const w of ws) {
+        let best = 0; for (const t of toks) best = Math.max(best, ratio(norm(w), norm(t)));
+        if (best >= 0.75) total += best;
       }
+      if (total > 0) out.push([total, f]);
     }
-    return bs >= 0.75 ? [best, bs] : [null, bs];
+    return out.sort((a, b) => b[0] - a[0]);
+  }
+  function findFaculty(text) {
+    const r = rank(text);
+    return r.length ? [r[0][1], r[0][0] / words(text).length] : [null, 0];
   }
   function status(f, now) {
-    now = now || nowDhaka(); const day = DAYS[now.dayIdx], t = now.time;
-    for (const s of f.schedule) if (s.day === day && s.start <= t && t < s.end)
-      return s.type === "office_hour" ? { state: "available", label: "In office hour until " + s.end, until: s.end }
-                                      : { state: "busy", label: "In class until " + s.end, until: s.end };
+    now = now || nowDhaka();
+    if (f.designation.toLowerCase().includes("leave")) return { state: "leave", label: "Currently on leave", until: null };
+    if (!f.schedule.length) return { state: "unknown", label: "Timetable not available yet", until: null };
+    const day = DAYS[now.dayIdx], t = now.time;
+    for (const s of f.schedule) if (s.day === day && s.start <= t && t < s.end) {
+      if (s.type === "office_hour") return { state: "available", label: "In office hour until " + s.end, until: s.end };
+      if (s.type === "admin") return { state: "admin", label: "In admin hour until " + s.end, until: s.end };
+      return { state: "busy", label: "In class until " + s.end, until: s.end };
+    }
     if (WORKDAYS.includes(day) && DAY_START <= t && t < DAY_END)
-      return { state: "free", label: "Not in class right now (may be in office)", until: null };
+      return { state: "free", label: "No class scheduled right now", until: null };
     return { state: "off", label: "Outside university hours", until: null };
   }
   function nextOfficeHour(f, now) {
@@ -100,12 +110,21 @@
   const faculty = {
     find: findFaculty, status, nextOfficeHour, all: now => FAC.map(f => pub(f, now)),
     answer(text, now) {
-      const [f, score] = findFaculty(text);
-      if (!f) return { found: false, text: "I couldn't find that faculty member. Could you say the full name?" };
-      const st = status(f, now), nxt = nextOfficeHour(f, now);
-      let r = `${f.name} (${f.designation}, ${f.department}) sits in room ${f.room_no}, building ${f.building}. ${st.label}.`;
-      if (st.state !== "available" && nxt) r += ` Next office hour: ${nxt.when} ${nxt.start} to ${nxt.end}.`;
-      return { found: true, text: r, faculty: pub(f, now), match: Math.round(score * 100) / 100 };
+      const r = rank(text);
+      if (!r.length) return { found: false, text: "I couldn't find that faculty member. Could you say the full name?" };
+      const top = r.filter(x => Math.abs(x[0] - r[0][0]) < 1e-9).map(x => x[1]);
+      if (top.length > 1)
+        return { found: false, ambiguous: true, text: "I found more than one match: " + top.slice(0, 4).map(f => `${f.name} (room ${f.room_no})`).join("; ") + ". Which one do you mean?" };
+      const [f, score] = findFaculty(text), st = status(f, now);
+      let reply = `${f.name} (${baseDesignation(f.designation)}, ${f.department}) sits in room ${f.room_no}, building ${f.building}.`;
+      if (st.state === "unknown") reply += " Their timetable isn't available yet.";
+      else if (st.state === "leave") reply += " They are currently on leave.";
+      else {
+        reply += ` ${st.label}.`;
+        const nxt = nextOfficeHour(f, now);
+        if (st.state !== "available") reply += nxt ? ` Next office hour: ${nxt.when} ${nxt.start} to ${nxt.end}.` : " No office hours are listed.";
+      }
+      return { found: true, text: reply, faculty: pub(f, now), match: Math.round(score * 100) / 100 };
     },
   };
 
@@ -152,7 +171,7 @@
       const tl = text.toLowerCase(); const [f] = findFaculty(text);
       intent = GREET.test(tl) ? "greeting" : (f && (FACULTY_WORDS.test(tl) || tl.split(/\s+/).length <= 4) ? "faculty" : "campus_faq");
       pipeline.push({ step: "Intent router", detail: intent });
-      if (intent === "greeting") reply = "Hi! I'm your AIUB Campus Companion. Ask me things like \"Nazib sir er room number ki?\" or \"How is CGPA calculated?\"";
+      if (intent === "greeting") reply = "Hi! I'm your AIUB Campus Companion. Ask me things like \"Nyme Ahmed madam er room number ki?\" or \"How is CGPA calculated?\"";
       else if (intent === "faculty") {
         const r = faculty.answer(text, now); reply = r.text; extra = { faculty: r.faculty, match: r.match };
         pipeline.push({ step: "Faculty database", detail: "match " + (r.match || 0) });
