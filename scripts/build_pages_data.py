@@ -1,7 +1,6 @@
 """Builds docs/data.js (data + safety rules) from the Python sources, so the
 GitHub Pages demo always matches the Python app.  Run: python scripts/build_pages_data.py
 """
-import csv
 import json
 import sys
 from pathlib import Path
@@ -10,16 +9,9 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from core import safety  # noqa: E402
 
-faculty = {}
-with open(ROOT / "data" / "faculty.csv", newline="", encoding="utf-8") as fh:
-    for r in csv.DictReader(fh):
-        f = faculty.setdefault(r["faculty_id"], {
-            "id": r["faculty_id"], "name": r["name"],
-            "aliases": [a.strip() for a in r["aliases"].split("|") if a.strip()],
-            "designation": r["designation"], "department": r["department"],
-            "building": r["building"], "room_no": r["room_no"], "source": r["source"],
-            "schedule": []})
-        f["schedule"].append({"day": r["day"], "start": r["start"], "end": r["end"], "type": r["type"]})
+from core.faculty import FacultyDB  # noqa: E402
+
+faculty = FacultyDB(ROOT / "data" / "faculty.csv").faculty
 
 data = {
     "faculty": list(faculty.values()),

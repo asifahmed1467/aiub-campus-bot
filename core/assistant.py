@@ -51,7 +51,7 @@ class Assistant:
             extra = {}
             if intent == "greeting":
                 reply = ("Hi! I'm your AIUB Campus Companion. Ask me things like "
-                         "\"Nazib sir er room number ki?\" or \"How is CGPA calculated?\"")
+                         "\"Nyme Ahmed madam er room number ki?\" or \"How is CGPA calculated?\"")
             elif intent == "faculty":
                 r = self.faculty.answer(text, now)
                 reply = r["text"]
