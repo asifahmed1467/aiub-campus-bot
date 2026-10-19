@@ -1,0 +1,81 @@
+faculty_id,name,aliases,designation,department,building,room_no,day,start,end,type,source
+F01,Nazib Hasan,Nazib sir|Nazib|Najib sir,Assistant Professor,CSE,D,D-0405,Sunday,10:30,12:00,class,demo
+F01,Nazib Hasan,Nazib sir|Nazib|Najib sir,Assistant Professor,CSE,D,D-0405,Sunday,16:30,17:30,office_hour,demo
+F01,Nazib Hasan,Nazib sir|Nazib|Najib sir,Assistant Professor,CSE,D,D-0405,Monday,09:00,10:30,class,demo
+F01,Nazib Hasan,Nazib sir|Nazib|Najib sir,Assistant Professor,CSE,D,D-0405,Tuesday,09:00,10:30,class,demo
+F01,Nazib Hasan,Nazib sir|Nazib|Najib sir,Assistant Professor,CSE,D,D-0405,Tuesday,16:30,17:30,office_hour,demo
+F01,Nazib Hasan,Nazib sir|Nazib|Najib sir,Assistant Professor,CSE,D,D-0405,Wednesday,09:00,10:30,class,demo
+F01,Nazib Hasan,Nazib sir|Nazib|Najib sir,Assistant Professor,CSE,D,D-0405,Thursday,10:30,12:00,class,demo
+F01,Nazib Hasan,Nazib sir|Nazib|Najib sir,Assistant Professor,CSE,D,D-0405,Thursday,16:30,17:30,office_hour,demo
+F02,Farhana Sultana,Farhana madam|Farhana mam,Senior Lecturer,CSE,D,D-0412,Sunday,09:00,10:30,class,demo
+F02,Farhana Sultana,Farhana madam|Farhana mam,Senior Lecturer,CSE,D,D-0412,Sunday,16:30,17:30,office_hour,demo
+F02,Farhana Sultana,Farhana madam|Farhana mam,Senior Lecturer,CSE,D,D-0412,Monday,13:30,15:00,class,demo
+F02,Farhana Sultana,Farhana madam|Farhana mam,Senior Lecturer,CSE,D,D-0412,Tuesday,09:00,10:30,class,demo
+F02,Farhana Sultana,Farhana madam|Farhana mam,Senior Lecturer,CSE,D,D-0412,Tuesday,16:30,17:30,office_hour,demo
+F02,Farhana Sultana,Farhana madam|Farhana mam,Senior Lecturer,CSE,D,D-0412,Wednesday,09:00,10:30,class,demo
+F02,Farhana Sultana,Farhana madam|Farhana mam,Senior Lecturer,CSE,D,D-0412,Thursday,09:00,10:30,class,demo
+F02,Farhana Sultana,Farhana madam|Farhana mam,Senior Lecturer,CSE,D,D-0412,Thursday,16:30,17:30,office_hour,demo
+F03,Rafiul Karim,Rafiul sir|Rafi sir,Associate Professor,CSE,D,D-0418,Sunday,09:00,10:30,class,demo
+F03,Rafiul Karim,Rafiul sir|Rafi sir,Associate Professor,CSE,D,D-0418,Sunday,16:30,17:30,office_hour,demo
+F03,Rafiul Karim,Rafiul sir|Rafi sir,Associate Professor,CSE,D,D-0418,Monday,13:30,15:00,class,demo
+F03,Rafiul Karim,Rafiul sir|Rafi sir,Associate Professor,CSE,D,D-0418,Tuesday,09:00,10:30,class,demo
+F03,Rafiul Karim,Rafiul sir|Rafi sir,Associate Professor,CSE,D,D-0418,Tuesday,16:30,17:30,office_hour,demo
+F03,Rafiul Karim,Rafiul sir|Rafi sir,Associate Professor,CSE,D,D-0418,Wednesday,09:00,10:30,class,demo
+F03,Rafiul Karim,Rafiul sir|Rafi sir,Associate Professor,CSE,D,D-0418,Thursday,12:00,13:30,class,demo
+F03,Rafiul Karim,Rafiul sir|Rafi sir,Associate Professor,CSE,D,D-0418,Thursday,16:30,17:30,office_hour,demo
+F04,Sadia Islam,Sadia madam|Sadia mam,Lecturer,CSE,D,D-0421,Sunday,09:00,10:30,class,demo
+F04,Sadia Islam,Sadia madam|Sadia mam,Lecturer,CSE,D,D-0421,Sunday,16:30,17:30,office_hour,demo
+F04,Sadia Islam,Sadia madam|Sadia mam,Lecturer,CSE,D,D-0421,Monday,12:00,13:30,class,demo
+F04,Sadia Islam,Sadia madam|Sadia mam,Lecturer,CSE,D,D-0421,Tuesday,10:30,12:00,class,demo
+F04,Sadia Islam,Sadia madam|Sadia mam,Lecturer,CSE,D,D-0421,Tuesday,16:30,17:30,office_hour,demo
+F04,Sadia Islam,Sadia madam|Sadia mam,Lecturer,CSE,D,D-0421,Wednesday,09:00,10:30,class,demo
+F04,Sadia Islam,Sadia madam|Sadia mam,Lecturer,CSE,D,D-0421,Thursday,09:00,10:30,class,demo
+F04,Sadia Islam,Sadia madam|Sadia mam,Lecturer,CSE,D,D-0421,Thursday,16:30,17:30,office_hour,demo
+F05,Imran Chowdhury,Imran sir,Assistant Professor,SE,B,B-0307,Sunday,09:00,10:30,class,demo
+F05,Imran Chowdhury,Imran sir,Assistant Professor,SE,B,B-0307,Sunday,16:30,17:30,office_hour,demo
+F05,Imran Chowdhury,Imran sir,Assistant Professor,SE,B,B-0307,Monday,09:00,10:30,class,demo
+F05,Imran Chowdhury,Imran sir,Assistant Professor,SE,B,B-0307,Tuesday,10:30,12:00,class,demo
+F05,Imran Chowdhury,Imran sir,Assistant Professor,SE,B,B-0307,Tuesday,16:30,17:30,office_hour,demo
+F05,Imran Chowdhury,Imran sir,Assistant Professor,SE,B,B-0307,Wednesday,13:30,15:00,class,demo
+F05,Imran Chowdhury,Imran sir,Assistant Professor,SE,B,B-0307,Thursday,12:00,13:30,class,demo
+F05,Imran Chowdhury,Imran sir,Assistant Professor,SE,B,B-0307,Thursday,16:30,17:30,office_hour,demo
+F06,Mehzabin Noor,Mehzabin madam,Senior Lecturer,SE,B,B-0311,Sunday,13:30,15:00,class,demo
+F06,Mehzabin Noor,Mehzabin madam,Senior Lecturer,SE,B,B-0311,Sunday,16:30,17:30,office_hour,demo
+F06,Mehzabin Noor,Mehzabin madam,Senior Lecturer,SE,B,B-0311,Monday,12:00,13:30,class,demo
+F06,Mehzabin Noor,Mehzabin madam,Senior Lecturer,SE,B,B-0311,Tuesday,10:30,12:00,class,demo
+F06,Mehzabin Noor,Mehzabin madam,Senior Lecturer,SE,B,B-0311,Tuesday,16:30,17:30,office_hour,demo
+F06,Mehzabin Noor,Mehzabin madam,Senior Lecturer,SE,B,B-0311,Wednesday,09:00,10:30,class,demo
+F06,Mehzabin Noor,Mehzabin madam,Senior Lecturer,SE,B,B-0311,Thursday,12:00,13:30,class,demo
+F06,Mehzabin Noor,Mehzabin madam,Senior Lecturer,SE,B,B-0311,Thursday,16:30,17:30,office_hour,demo
+F07,Tanvir Alam,Tanvir sir,Lecturer,EEE,C,C-0202,Sunday,13:30,15:00,class,demo
+F07,Tanvir Alam,Tanvir sir,Lecturer,EEE,C,C-0202,Sunday,16:30,17:30,office_hour,demo
+F07,Tanvir Alam,Tanvir sir,Lecturer,EEE,C,C-0202,Monday,12:00,13:30,class,demo
+F07,Tanvir Alam,Tanvir sir,Lecturer,EEE,C,C-0202,Tuesday,09:00,10:30,class,demo
+F07,Tanvir Alam,Tanvir sir,Lecturer,EEE,C,C-0202,Tuesday,16:30,17:30,office_hour,demo
+F07,Tanvir Alam,Tanvir sir,Lecturer,EEE,C,C-0202,Wednesday,09:00,10:30,class,demo
+F07,Tanvir Alam,Tanvir sir,Lecturer,EEE,C,C-0202,Thursday,10:30,12:00,class,demo
+F07,Tanvir Alam,Tanvir sir,Lecturer,EEE,C,C-0202,Thursday,16:30,17:30,office_hour,demo
+F08,Shamima Begum,Shamima madam,Assistant Professor,BBA,A,A-0115,Sunday,10:30,12:00,class,demo
+F08,Shamima Begum,Shamima madam,Assistant Professor,BBA,A,A-0115,Sunday,16:30,17:30,office_hour,demo
+F08,Shamima Begum,Shamima madam,Assistant Professor,BBA,A,A-0115,Monday,09:00,10:30,class,demo
+F08,Shamima Begum,Shamima madam,Assistant Professor,BBA,A,A-0115,Tuesday,09:00,10:30,class,demo
+F08,Shamima Begum,Shamima madam,Assistant Professor,BBA,A,A-0115,Tuesday,16:30,17:30,office_hour,demo
+F08,Shamima Begum,Shamima madam,Assistant Professor,BBA,A,A-0115,Wednesday,12:00,13:30,class,demo
+F08,Shamima Begum,Shamima madam,Assistant Professor,BBA,A,A-0115,Thursday,13:30,15:00,class,demo
+F08,Shamima Begum,Shamima madam,Assistant Professor,BBA,A,A-0115,Thursday,16:30,17:30,office_hour,demo
+F09,Arif Mahmud,Arif sir,Senior Lecturer,Math,A,A-0220,Sunday,13:30,15:00,class,demo
+F09,Arif Mahmud,Arif sir,Senior Lecturer,Math,A,A-0220,Sunday,16:30,17:30,office_hour,demo
+F09,Arif Mahmud,Arif sir,Senior Lecturer,Math,A,A-0220,Monday,09:00,10:30,class,demo
+F09,Arif Mahmud,Arif sir,Senior Lecturer,Math,A,A-0220,Tuesday,12:00,13:30,class,demo
+F09,Arif Mahmud,Arif sir,Senior Lecturer,Math,A,A-0220,Tuesday,16:30,17:30,office_hour,demo
+F09,Arif Mahmud,Arif sir,Senior Lecturer,Math,A,A-0220,Wednesday,09:00,10:30,class,demo
+F09,Arif Mahmud,Arif sir,Senior Lecturer,Math,A,A-0220,Thursday,12:00,13:30,class,demo
+F09,Arif Mahmud,Arif sir,Senior Lecturer,Math,A,A-0220,Thursday,16:30,17:30,office_hour,demo
+F10,Nusrat Jahan,Nusrat madam,Lecturer,English,A,A-0108,Sunday,12:00,13:30,class,demo
+F10,Nusrat Jahan,Nusrat madam,Lecturer,English,A,A-0108,Sunday,16:30,17:30,office_hour,demo
+F10,Nusrat Jahan,Nusrat madam,Lecturer,English,A,A-0108,Monday,09:00,10:30,class,demo
+F10,Nusrat Jahan,Nusrat madam,Lecturer,English,A,A-0108,Tuesday,12:00,13:30,class,demo
+F10,Nusrat Jahan,Nusrat madam,Lecturer,English,A,A-0108,Tuesday,16:30,17:30,office_hour,demo
+F10,Nusrat Jahan,Nusrat madam,Lecturer,English,A,A-0108,Wednesday,09:00,10:30,class,demo
+F10,Nusrat Jahan,Nusrat madam,Lecturer,English,A,A-0108,Thursday,09:00,10:30,class,demo
+F10,Nusrat Jahan,Nusrat madam,Lecturer,English,A,A-0108,Thursday,16:30,17:30,office_hour,demo
