@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIUB Campus Companion</title>
+<style>
+:root{--bg:#0f1420;--panel:#171e2e;--panel2:#1e2740;--line:#2a3550;--tx:#e8ecf5;--mut:#8b97b3;--acc:#4f8cff;--ok:#2fc58a;--warn:#f5b13d;--bad:#f0605d;--r:14px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+header{padding:14px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{font-size:18px;margin:0;font-weight:600}header span{color:var(--mut);font-size:13px}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#4f8cff,#7c5cff);display:grid;place-items:center;font-weight:700}
+main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;padding:16px 22px;max-width:1300px;margin:auto}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.card h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);margin:0 0 10px;font-weight:600}
+#chat{height:420px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:4px}
+.msg{max-width:85%;padding:10px 13px;border-radius:14px;white-space:pre-wrap}
+.me{align-self:flex-end;background:var(--acc);color:#fff;border-bottom-right-radius:4px}
+.bot{align-self:flex-start;background:var(--panel2);border-bottom-left-radius:4px}
+.bot.danger{border:1px solid var(--bad);background:#2a1a22}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:99px;margin-top:6px;margin-right:4px;background:#0f1420;color:var(--mut)}
+.tag.ok{color:var(--ok)}.tag.bad{color:var(--bad)}.tag.warn{color:var(--warn)}
+.row{display:flex;gap:8px;margin-top:10px;align-items:center}
+input[type=text]{flex:1;background:var(--bg);border:1px solid var(--line);color:var(--tx);padding:11px 13px;border-radius:12px;font-size:15px;outline:none}
+input[type=text]:focus{border-color:var(--acc)}
+button{background:var(--panel2);color:var(--tx);border:1px solid var(--line);padding:10px 14px;border-radius:12px;cursor:pointer;font-size:14px}
+button:hover{border-color:var(--acc)}button.primary{background:var(--acc);border-color:var(--acc);color:#fff}
+#mic.rec{background:var(--bad);border-color:var(--bad);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(240,96,93,.25)}}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.chips button{font-size:12px;padding:6px 10px;color:var(--mut)}
+select{background:var(--bg);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:8px}
+label.t{color:var(--mut);font-size:13px;display:flex;gap:6px;align-items:center}
+.pipe{display:flex;flex-direction:column;gap:6px}
+.step{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:var(--bg);border:1px solid var(--line);opacity:.35;transition:.3s}
+.step.on{opacity:1;border-color:var(--acc)}.step.crit{border-color:var(--bad)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--mut)}.step.on .dot{background:var(--ok)}.step.crit .dot{background:var(--bad)}
+.step small{margin-left:auto;color:var(--mut)}
+.fac{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;max-height:340px;overflow:auto}
+.f{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;cursor:pointer}
+.f:hover{border-color:var(--acc)}.f b{display:block}.f small{color:var(--mut)}
+.badge{float:right;font-size:11px;padding:2px 8px;border-radius:99px}
+.free{background:#12332a;color:var(--ok)}.busy{background:#3a2a12;color:var(--warn)}.available{background:#12332a;color:var(--ok)}.off{background:#222a3d;color:var(--mut)}
+.bars div{display:flex;align-items:center;gap:8px;font-size:12px;margin:4px 0}
+.bars i{display:block;height:8px;border-radius:4px;background:var(--acc);transition:width .4s}
+.log div{font-size:12px;color:var(--mut);padding:3px 0;border-bottom:1px dashed var(--line)}
+.priv{font-size:12px;color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">AI</div>
+  <div><h1>AIUB Campus Companion</h1><span>Voice assistant for campus info, faculty lookup and student wellbeing</span></div>
+  <div style="margin-left:auto;display:flex;gap:10px;align-items:center">
+    <select id="lang"><option value="en-US">English</option><option value="bn-BD">Bangla</option></select>
+    <label class="t"><input type="checkbox" id="speak" checked> Speak replies</label>
+  </div>
+</header>
+<div style="margin:12px 22px 0;max-width:1256px;margin-left:auto;margin-right:auto;padding:8px 14px;border:1px solid var(--line);border-radius:10px;color:var(--mut);font-size:13px">Static demo: everything runs in your browser and nothing is sent anywhere. Faculty rooms and schedules are demo data, not real AIUB records.</div>
+<main>
+  <section>
+    <div class="card">
+      <h2>Conversation</h2>
+      <div id="chat"></div>
+      <div class="row">
+        <button id="mic" title="Hold a conversation by voice">Mic</button>
+        <input type="text" id="q" placeholder="Type or press Mic... e.g. Nazib sir er room number ki?" autocomplete="off">
+        <button class="primary" id="send">Send</button>
+      </div>
+      <div class="chips" id="chips"></div>
+      <p class="priv">Privacy: no voice is stored. The log shows only the intent and safety label, never your words. This assistant is not a counselor or doctor.</p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2>Faculty directory (click to ask)</h2>
+      <div class="fac" id="fac"></div>
+    </div>
+  </section>
+  <aside style="display:flex;flex-direction:column;gap:16px">
+    <div class="card"><h2>Live pipeline</h2><div class="pipe" id="pipe"></div><div class="priv" id="lat" style="margin-top:8px"></div></div>
+    <div class="card"><h2>Session analytics (anonymous)</h2><div class="bars" id="bars"></div><div class="log" id="log" style="margin-top:8px"></div></div>
+  </aside>
+</main>
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const STEPS=["Speech to text","Safety classifier","Intent router","Faculty database","Knowledge base (RAG)","Crisis / policy response","Output guard","Text to speech"];
+const SAMPLES=["Nazib sir er room number ki?","Is Farhana madam free now?","How is CGPA calculated?","How do I register for courses?","I feel so stressed about finals","Write my assignment for me","I want to die"];
+SAMPLES.forEach(s=>{const b=document.createElement("button");b.textContent=s;b.onclick=()=>send(s);$("chips").appendChild(b)});
+function add(text,cls,tags=[]){const d=document.createElement("div");d.className="msg "+cls;d.textContent=text;
+ tags.forEach(([t,c])=>{const s=document.createElement("span");s.className="tag "+c;s.textContent=t;d.appendChild(document.createElement("br"));d.appendChild(s)});
+ $("chat").appendChild(d);$("chat").scrollTop=1e9;return d}
+function drawPipe(active=[],crit=false){$("pipe").innerHTML="";STEPS.forEach(n=>{const on=active.find(a=>a.step===n);
+ const d=document.createElement("div");d.className="step"+(on?" on":"")+(on&&crit&&n.startsWith("Crisis")?" crit":"");
+ d.innerHTML=`<span class="dot"></span>${n}<small>${on?on.detail:""}</small>`;$("pipe").appendChild(d)})}
+function speak(t){if(!$("speak").checked||!window.speechSynthesis)return;speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(t);u.lang=$("lang").value;u.rate=1;speechSynthesis.speak(u)}
+async function send(text){text=(text||$("q").value).trim();if(!text)return;$("q").value="";add(text,"me");
+ const r=Engine.handle(text);
+ const danger=r.intent==="safety_escalation";const tags=[];
+ tags.push([r.intent.replace("_"," "),danger?"bad":"ok"]);
+ if(r.safety&&r.safety.label!=="safe")tags.push(["safety: "+r.safety.label,r.safety.severity==="high"?"bad":"warn"]);
+ if(r.source)tags.push(["source: "+r.source,"ok"]);
+ if(r.confidence!=null)tags.push(["confidence "+r.confidence,"warn"]);
+ add(r.reply,"bot"+(danger?" danger":""),tags);drawPipe(r.pipeline||[],danger);
+ $("lat").textContent="Response time: "+r.latency_ms+" ms";speak(r.reply);loadDash()}
+$("send").onclick=()=>send();$("q").addEventListener("keydown",e=>{if(e.key==="Enter")send()});
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec;
+$("mic").onclick=()=>{if(!SR){add("Voice input needs Chrome or Edge. You can still type.","bot");return}
+ if(rec){rec.stop();return}rec=new SR();rec.lang=$("lang").value;rec.interimResults=true;
+ rec.onstart=()=>$("mic").classList.add("rec");
+ rec.onresult=e=>{$("q").value=[...e.results].map(r=>r[0].transcript).join("")};
+ rec.onend=()=>{$("mic").classList.remove("rec");const had=$("q").value.trim();rec=null;if(had)send()};
+ rec.onerror=()=>{rec=null;$("mic").classList.remove("rec")};rec.start()};
+async function loadFac(){const f=Engine.faculty.all();$("fac").innerHTML="";
+ f.forEach(x=>{const d=document.createElement("div");d.className="f";
+ d.innerHTML=`<span class="badge ${x.status.state}">${x.status.state}</span><b>${x.name}</b><small>${x.designation}, ${x.department}</small><br><small>Room ${x.room_no}</small>`;
+ d.onclick=()=>send(x.aliases[0]+" er room number ki? Is he free now?");$("fac").appendChild(d)})}
+async function loadDash(){const d=Engine.dashboard();const s=d.stats;
+ const keys=Object.keys(s).filter(k=>!k.startsWith("safety_")),max=Math.max(1,...keys.map(k=>s[k]));
+ $("bars").innerHTML=keys.map(k=>`<div><span style="width:120px">${k.replace("_"," ")}</span><i style="width:${s[k]/max*100}px"></i>${s[k]}</div>`).join("")||"<span class='priv'>No queries yet</span>";
+ $("log").innerHTML=d.log.slice(0,6).map(l=>`<div>${l.time} - ${l.intent} - ${l.safety}</div>`).join("")}
+drawPipe();loadFac();loadDash();
+add("Hi! Ask by voice or text, in English or Banglish. Try the sample chips below.","bot");
+</script>
+</body>
+</html>
